@@ -8,6 +8,7 @@ class DPPixModel(nn.Module):
     def forward(self, x):
         with torch.no_grad():
             # Break down into blocks
+            x = x * 0.5 + 0.5
             b, c, h, w = x.size()
             block_size = 32
             x = x.reshape(b, c, block_size, h // block_size, block_size, w // block_size)
@@ -25,5 +26,6 @@ class DPPixModel(nn.Module):
             x = x.unsqueeze(3).unsqueeze(5)  # [b, c, block_size, 1, block_size, 1]
             x = x.expand(b, c, block_size, h // block_size, block_size, w // block_size)  # [b, c, block_size, h // block_size, block_size, w // block_size]
             x = x.reshape(b, c, h, w)  # [b, c, h, w]
+            x = (x - 0.5) / 0.5
 
         return x

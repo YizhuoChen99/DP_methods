@@ -9,8 +9,7 @@ class DPImageModel(nn.Module):
         super(DPImageModel, self).__init__()
         
         self.transform = transforms.Compose([
-            transforms.Resize((256, 256)),
-            transforms.Normalize([0.5, 0.5, 0.5], [0.5, 0.5, 0.5])])
+            transforms.Resize((256, 256)),])
 
         ckpt = torch.load(model_path, map_location='cpu')
         opts = ckpt['opts']
@@ -26,6 +25,6 @@ class DPImageModel(nn.Module):
             x = self.transform(x)
             for i in range(10):
                 x = self.net(x, randomize_noise=False)
-            x = x * 0.5 + 0.5
-            x = torch.clamp(x, 0, 1)
+            # x = x * 0.5 + 0.5
+            # x = torch.clamp(x, 0, 1)
         return x

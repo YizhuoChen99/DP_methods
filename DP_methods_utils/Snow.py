@@ -8,7 +8,7 @@ class SnowModel(nn.Module):
     def forward(self, x):
         with torch.no_grad():
             mask = torch.rand_like(x) < 0.9
-            snow = torch.full_like(x, 0.5)
+            snow = torch.zeros_like(x)
             x = torch.where(mask, snow, x)
 
         return x

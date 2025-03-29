@@ -13,5 +13,5 @@ class LaplaceMechanismModel(nn.Module):
             laplace = torch.distributions.Laplace(loc, scale)
             noise = laplace.sample(x.size()).to(x.device)  # sample noise with the same shape as x
             x = x + noise  # add noise to the input
-            x = torch.clamp(x, 0, 1)  # clamp the output to [0, 1]
+            # x = torch.clamp(x, 0, 1)  # clamp the output to [0, 1]
         return x
